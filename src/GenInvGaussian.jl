@@ -5,7 +5,8 @@ export GeneralizedInverseGaussian
 import Base.mean
 import Base.rand
 using Distributions
-import Distributions: mean, var, mode, mgf, cf, rand, params
+import Distributions: mean, var, mode, mgf, cf, rand, params, minimum, maximum
+# import Distributions: @check_args, @distr_support
 
 immutable GeneralizedInverseGaussian <: ContinuousUnivariateDistribution
     p::Float64
@@ -13,12 +14,13 @@ immutable GeneralizedInverseGaussian <: ContinuousUnivariateDistribution
     b::Float64
 
     function GeneralizedInverseGaussian(p::Real, a::Real, b::Real)
-        #@checkargs(GeneralizedInverseGaussian, a > zero(a), b > zero(b))
+#        @check_args(GeneralizedInverseGaussian, a > zero(a) && b > zero(b))
         new(p, a, b)
     end
 end
 
-#@distr_support GeneralizedInverseGaussian 0.0 Inf
+minimum(GeneralizedInverseGaussian) = 0.0
+maximum(GeneralizedInverseGaussian) = Inf
 
 #### Parameters
 
