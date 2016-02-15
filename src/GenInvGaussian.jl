@@ -19,8 +19,8 @@ immutable GeneralizedInverseGaussian <: ContinuousUnivariateDistribution
     end
 end
 
-minimum(GeneralizedInverseGaussian) = 0.0
-maximum(GeneralizedInverseGaussian) = Inf
+minimum(::GeneralizedInverseGaussian) = 0.0
+maximum(::GeneralizedInverseGaussian) = Inf
 
 #### Parameters
 
@@ -75,6 +75,16 @@ end
 # rejection is lower than sqrt(2).
 function rand(d::GeneralizedInverseGaussian)
     (p, a, b) = params(d)
+
+    # Handle the case p < 0
+    if p < 0
+        p = -p
+        a, b = b, a
+        invert = true
+    else
+        invert = false
+    end
+
     ω = sqrt(a*b)
 
     r = p/2 + sqrt(p*p + a*b)/2
@@ -89,8 +99,8 @@ function rand(d::GeneralizedInverseGaussian)
         sproposal = rand(dproposal)
         saccept = rand(daccept)
 
-        if saccept <= acceptrate(sproposal)
-            return sproposal
+        if saccept < acceptrate(sproposal)
+            return invert ? 1/sproposal : sproposal
         end
     end
 end
