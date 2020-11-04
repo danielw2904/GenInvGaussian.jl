@@ -1,7 +1,7 @@
 name = "GenInvGaussian"
 uuid = "2ed7b14b-3488-4ed3-9c00-c8a367147750"
 authors = ["Lars Mescheder", "Daniel Winkler <danielw2904@disroot.org>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"

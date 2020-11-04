@@ -2,7 +2,7 @@ module GenInvGaussian
 
 export GeneralizedInverseGaussian
 
-import Base.mean
+import Statistics.mean
 import SpecialFunctions.besselk
 import Base.rand
 using Distributions
